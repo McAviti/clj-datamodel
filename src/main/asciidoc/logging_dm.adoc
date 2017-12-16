@@ -3,7 +3,7 @@ Central Logging Datamodel
 Mandatory fields are printed bold.
 
 .NDM
-[cols="1,2,5,10", options="header"]
+[cols=".<1,.<2,.<5,.<10", options="header"]
 |=========
 |Type	|Field Name	|Short Description	|Long Description
 
@@ -130,5 +130,6 @@ enum Status { red yellow green }
 
 |Long	|durationMs	|Duration of a call in milliseconds|
 
-|String	|logProcessingError	|StackTrace of the log processing error.	|This is not provided by the client solution but used if anything goes wrong in CLJ log record processing.
+|String	|logProcessingError	|StackTrace of the log processing error.	
+|This is not provided by the client solution but used if anything goes wrong in CLJ log record processing.
 |=========
