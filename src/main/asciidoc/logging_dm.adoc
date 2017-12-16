@@ -3,13 +3,11 @@ Central Logging Datamodel
 Mandatory fields are printed bold.
 
 .NDM
-[options="header"]
+[cols="1,2,5,15", options="header"]
 |=========
 |Type	|Field Name	|Short Description	|Long Description
 
-|String
-|id
-|Technical id for the log record
+|String |id |Technical id for the log record
 |If set this must be unique for a log record. When the id is reused, the record in the index data store is updated by the newest event. In the compliance data store every event is stored.
 Allowed algorithms so far are UUID and Alfa stamp.
 
