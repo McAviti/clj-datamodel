@@ -3,7 +3,7 @@ Central Logging Datamodel
 Mandatory fields are printed bold.
 
 .NDM
-[cols="1,2,5,15", options="header"]
+[cols="1,2,5,10", options="header"]
 |=========
 |Type	|Field Name	|Short Description	|Long Description
 
