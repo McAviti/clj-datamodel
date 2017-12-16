@@ -104,7 +104,7 @@ Context
 |All the information that is not part of other fields
 
 |String	|additionalInfo	|semi-structured data |Business or other data
-Technically this is a text field. It is recommended, though, to use JSON syntax, because the front-end will interpret it and display a tree structure.
+|Technically this is a text field. It is recommended, though, to use JSON syntax, because the front-end will interpret it and display a tree structure.
 Special Case of additionalInfo: External Links. This will be rendered in the UI as Link with following Syntax: additionalInfo.extlink.ref : The URI for the external Link; additionalInfo.extlink.name : The DisplayName for the Link.
 
 4+|*Result section*
