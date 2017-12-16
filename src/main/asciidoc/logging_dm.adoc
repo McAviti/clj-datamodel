@@ -1,0 +1,136 @@
+Central Logging Datamodel
+
+Mandatory fields are printed bold.
+
+.NDM
+[options="header"]
+|=========
+|Type	|Field Name	|Short Description	|Long Description
+
+|String
+|id
+|Technical id for the log record
+|If set this must be unique for a log record. When the id is reused, the record in the index data store is updated by the newest event. In the compliance data store every event is stored.
+Allowed algorithms so far are UUID and Alfa stamp.
+
+4+|*Header Fields, meta data of each record*
+
+|String |recordType |Type of the journal entry journalsession, journalusecase, techinfo, accessLog, ...
+|This enumeration is selected in accordance with CLJ, it's free to select from the solution; anyway, it is recommended to use a known value (see subpage) to make recognition of the semantics of the record easier. record types can be shared between solutions, e.g. JournalSession, JournalActivity and TechInfo are record types that are used by man IMC applications.
+The record type is used for querying the CLJ data stores, as well as a key in defining retention periods and archiving strategy.
+
+|String |recordSubType |Additional field to identify the event
+|Can be used as a type of the source log record. For example is use as when the recordType is 'serverLog', the recordSubType could be "tomcat" oder "weblogic".
+
+|String |tenant	|Institute number
+|This is the tenant according to standard tenant list of Sparkassen sector group and subsidiaries.
+DateTimeWithFractionSeconds	recordTimestamp	When the log record has been created	If the client does not provide this, or it can be parsed on server side, the processing engine will create a timestamp as next best guess.
+
+|String	|logLevel	|Level of importance, as provided by many low-level logging systems
+|This field is optional, it is also not normalized, meaning that whatever the client solution provides here will be taken as-is.
+
+4+|*User Info, information about the person or technical systems connected to the log record*
+
+|String	|user	|Unique user id in its userType domain
+|This identifies the user or system uniquely within the domain given in "userType"
+
+|String	|userType	|Domain this user account belongs to
+|Could be Alfa user, Disposer, Service,...
+
+4+|*Source Info, which component wrote this log record*
+
+|String	|solutionRedCode	|Key from RED	|Identifies the Solution in RED
+
+|String	|solutionFunctionRedCode	|Key from RED, within solution|
+
+|String	|sourceApplication	|Free text given by logging system
+|On behalf of application, it must be unique and controlled by CLJ; can be used as alternative if no RED keys are available or the RED code alone is not significant enough.
+
+|String	|sourceHostname	|System name of the server initiating the logging call
+|e.g. DNS of physical or virtual system
+
+|String	|sourceIp	|Client IP, originator of the log|
+
+|String	|userAgent	|Software the initiated the call
+|This field is used when the software and its version of the user/client is relevant. e.g. In web front-ends this identifies the Browser that has been used. The writing solution can give any information if it thinks that information about its caller makes a difference.
+
+|String	|agentVersion	|TODO|
+
+|String	|serverInstanceName	|Identifies the server instance|
+
+4+|*Initiating solution*
+
+|String	|clientId	|Code from initiating system	|Often provided by FedLogin
+
+4+|*Harvesting Info, where was the log record first persistet, might be different from the source solution*
+
+|String |sourceType |Syntax of the incoming data
+|Syntax of the incoming data (into Kafka). 'generic' means using the NDM in JSON, this is the default value.
+This field is used by the LogRecord processor of CLJ to normalize the data before storing it into online query data store.
+
+|String	|loggingHostname	|Server Host Name	|like sourceHostname
+
+|String	|loggingHostIp	|Server IP address
+|The system that provided the logging information, e.g. Apache host for access logs, or GBC for George front-end logs
+
+|String	|logFile	|file name and path from which the log record has been harvested, if applicable
+|If logrecords are not sent directly to CLJ (Kafka) but harvested from a logfile (by Logstash or a similar software) here this filename and path of the appropriate format (Windows, Unix, Mainframe, …) can be sent if needed.
+Context
+
+|String	|parentId	|Hierarchical predecessor of this log record.
+|Could be of a functional or sequential order	Here a key of a hierarchical higher-level record can be set. So a tree-like structure of log records can be created.
+
+|String	|contextId1	|Mapping context id field 1
+|In the evJournal context this is the sessionId.
+
+|String	|contextId2	|Mapping context id field 2
+|In the evJournal context this is the activityId (Use Case ID).
+
+|String	|contextId3	|Mapping context id field 3
+|In the evJournal context this is the techInfoId.
+
+|String	|contextId4	|Mapping context id field 4|
+
+|DateTimeWithFractionSeconds	|startDate	|Start date of the record
+|For journalling records that have a time span, this field of the event signals the begin timestamp.
+
+|DateTimeWithFractionSeconds	|endDate	|End date of the session
+|For journalling records that have a time span, this field of the event signals the end timestamp.
+
+|String	|correlationId	|Correlation ID for a synchronous or quasi-synchronous call
+|Unique Id that is created as early as possible (ideally by the initiator) and then guided through the whole call hierarchy to create traces of calls.
+
+4+|*Unstructured and semistructured data*
+
+|String	|message	|Log Message
+|All the information that is not part of other fields
+
+|String	|additionalInfo	|semi-structured data |Business or other data
+Technically this is a text field. It is recommended, though, to use JSON syntax, because the front-end will interpret it and display a tree structure.
+Special Case of additionalInfo: External Links. This will be rendered in the UI as Link with following Syntax: additionalInfo.extlink.ref : The URI for the external Link; additionalInfo.extlink.name : The DisplayName for the Link.
+
+4+|*Result section*
+
+|String	|resultCode	|HTTP record code, Exception, Error|
+
+|String	|errorMessage	|Error Message|
+
+|Boolean	|businessError	|Business Error
+|Sometimes business errors are stored as normal messages.
+It is up to the application to decide which message is a business
+error or a message. This value should be true for business errors
+
+|Status |normalizedStatus |Status field red/yellow/green
+|This field is for the user, give a hint about whether this log record represents ok status, a warning or an error.
+enum Status { red yellow green }
+
+4+|*Technical information*
+
+|String	|thread	|Name of the server thread|
+
+|String	|logger	|Name of the class and method(optional) which logs this message|
+
+|Long	|durationMs	|Duration of a call in milliseconds|
+
+|String	|logProcessingError	|StackTrace of the log processing error.	|This is not provided by the client solution but used if anything goes wrong in CLJ log record processing.
+|=========
