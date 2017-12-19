@@ -1,12 +1,37 @@
-Central Logging Datamodel
+== Central Logging Datamodel
+
+=== Partitioning of the log record space
+
+Each record has its own id value, making it unique in all of the data stores.
+
+For managing the stores (especially the online research store for [A]), though, it is necessary to organize the records in
+a number of dimensions. This separation then supports in the determination of
+
+- Access rights/permissions
+- Retention times
+- Backup strategy
+
+With that, the integrated applications can gain a lot of control and flexibility for *their* data.
+
+The dimensions that are suggested is a combination, fitting to the actual need, of those fields:
+
+- tenant (in case of a real multi-tenant system with separated accounts)
+- environment (if environments are not separated pyhsically or logically on the server side)
+- solution, this determines the organizational owner of the log records within a tenant
+- recordType, to distinguish between different needs of building blocks and types of logging and journal data.
+
+=== Fields
 
 Mandatory fields are printed [teal]*bold*.
 
-.NDM
-[cols="1,2,3,6", options="header"]
+.NDM fields
+[options="header", cols="1,2,15,30"]
 |===
 
-|Type	|Field Name	|Short Description	|Long Description
+|Type
+|Field Name
+|Short Description
+|Long Description
 
 |String |id |Technical id for the log record
 |This can be set by the client (if trusted to care for uniqueness) or be omitted and set by the client. The server
@@ -26,10 +51,14 @@ retention periods and archiving strategy.
 |Can be used as a type of the source log record. For example is use as when the recordType is 'serverLog', the
 recordSubType could be "tomcat" oder "weblogic".
 
-|String |tenant	|Institute number
-|For organizations serving multiple iurisdictional tenant, this is the tenant code.
+|String | [teal]*tenant*	|Institute number
+|If needed, for organizations serving multiple iurisdictional tenant, this is the tenant code.
 
-|DateTimeWithFractionSeconds	|recordTimestamp	|When the log record has been created
+|String | [teal]*environment* | Environment identifier
+|If needed, when the development, test, staging, production etc. environments are not separted by dedicated data
+store instances but merged in one, this identifier determines from which environment a log record originates.
+
+|DateTime-WithFractionSeconds	|recordTimestamp	|When the log record has been created
 |If the client does not provide this, or the given value cannot be parsed on server side, the processing engine will
 create a timestamp as next best guess.
 
@@ -109,10 +138,10 @@ So a tree-like structure of log records can be created.
 
 |String	|contextId4	|Mapping context id field 4|
 
-|DateTimeWithFractionSeconds	|startDate	|Start date of the record
+|DateTime-WithFractionSeconds	|startDate	|Start date of the record
 |For journalling records that have a time span, this field of the event signals the begin timestamp.
 
-|DateTimeWithFractionSeconds	|endDate	|End date of the session
+|DateTime-WithFractionSeconds	|endDate	|End date of the session
 |For journalling records that have a time span, this field of the event signals the end timestamp.
 
 |String	|correlationId	|Correlation ID for a synchronous or quasi-synchronous call

@@ -1,0 +1,128 @@
+:hide-uri-scheme:
+
+== A Blueprint for Central Logging
+
+=== Introduction
+Logging is mostly treated as a local affair: Of a application or solution, a team, or even a single developer. But
+internal as well as external complexity of building block increases the effort to draw the right conclusion from the
+large heap of logging records.
+
+The trend from large monolithic application building block to smaller -- but therefore intensely interconnected --
+software components is visible. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria)
+started a project and then solution to care for a central logging and journalling data lake. +
+The architectural pattern here is described along the line of the "Central Logging & Journaling" solution/application
+of sIT.
+
+=== Goals
+Logging is not an end in itself -- it supports many use-cases that can be grouped into four partitions:
+
+[A]. *Support:* Find out about what the system did in its runtime, in order to detect the source of problems or give
+information to other stakeholders.
+
+[B]. *Compliance:* The number of regulatory use-cases increases, the behaviour of software must be documented for
+many years, often.
+
+[C]. *Monitoring & Alerting:* When a stream of logging data exists, it is self-evident to use this stream to find out
+about the system state as well as problems and report those.
+
+[D]. *Analytics & Intelligence:* Sophisticated tools allow data mining, BI etc. to find out ways to improve the
+business, may it be by exploring customer behaviour, may it by predicting operations problems, or may it something
+completely different of what we don't even dream of yet.
+
+.Use-case groups
+[options=header, frame=all, grid=all, cols="<,<,<,<"]
+|===
+|Support [A] | Compliance [B] | Monitoring & Alerting [C] | Analytics & Intelligence [D]
+
+|   * Customer Care +
+    * Issue research +
+    -> Access Security +
+    -> Searchable, neartime
+|    * Regulatory queries
+     -> Long term +
+     -> Safe data store +
+     -> Ideally certified +
+     -> Unfrequent queries
+|   * Stream analysis +
+    * Alerting endpoints +
+    -> Needs rules +
+    -> High performing
+|   * Statistics +
+    * Big Data Analysis +
+    * Machine Learning +
+    * Predictive Analysis +
+    -> Highly specialized toolset
+|===
+
+=== Architecture
+
+A possible architecture could make use of the following building blocks:
+
+[[clj-architecture]]
+.Logical architecture of CLJ
+image::logical_arch.png[]
+
+The functional as well as the non-functional, or quality, requirements of the use-case groups aforementioned are
+very different from each other. Therefore it makes sense to use different software products to fulfill those
+requirements.
+
+==== Messaging Brick
+This building block cares for a reliable (real 24/7) component where the applications can load their logging records
+up to. It is high-performant, lean, stable and therefore capable to also swallow extreme high-load peaks.
+
+This building block also cares for the use-case group [C]. The type of product is queue-like, our implementation uses
+Apache Kafka (https://kafka.apache.org/).
+
+==== Online Research Store
+This record store is responsible for the structured and fast search for log records and to find out about connections
+between those.
+
+Our implementation uses ElasticSearch (https://www.elastic.co/de/) together with a self-written ReST service and an
+Angular-base front-end
+
+==== Compliance Store
+Selected log records (defined by the solution) are persisted in this record store. It is very reliable, needs a
+back-up, is fast with writing and stores the record before any tampering with it. On the other hand it does not need
+a super-sophisticated query facility.
+
+In our implementation we decided for Apache Cassandra (http://cassandra.apache.org/).
+
+==== The Client Side
+The applications for logging can send their log records either directly into the messaging brick or by harvesting
+them from the filesystem or another data store. Both methods have pro's and con's.
+
+.Harvesting methods.
+[options=header]
+|===
+| Direct transfer | Logfile harvesting
+
+| + Fastest +
+  + Possibly eliminates one component (file system)
+| + Non-intrusive to existing applications +
+  - Needs another process (ressources + monitoring)
+|===
+
+===== Direct transfer
+Possibilities for application to integrate are:
+
+- Own client libs of messaging brick
+- APIs for creating messages that fit to the data model of CLJ
+- Appenders for existing logging frameworks (e.g. log4j2 in Java, or log.net for C#)
+
+Generally it is a good idea to offer integration libraries that care for the situations where the messaging brick
+suffers from a failure. In those cases the using application should not be brought down by logging.
+
+==== Logfile harvesting
+There are a lot of tools for that use-case, ranging from light-weight native apps that are integrated into the
+operating system up to full-scale ETL tools (https://en.wikipedia.org/wiki/Extract,_transform,_load).
+
+A few examples:
+
+- rsyslog (http://www.rsyslog.com/)
+- fluentd (https://www.fluentd.org/)
+- Apache flume (https://flume.apache.org/)
+- ElasticSearch' beat-family (https://www.elastic.co/products/beats)
+- logstash (https://www.elastic.co/products/logstash, the 'L' from the famous ELK stack)
+
+In certain architectures, some of these products could server as the messaging brick itself.
+

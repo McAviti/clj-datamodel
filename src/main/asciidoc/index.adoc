@@ -1,0 +1,11 @@
+:description: CLJ is a blueprint for a shared and central logging building block
+:keywords: software-architecture, logging, journalling, enterprise-it, practices
+:toc:
+:toclevels: 3
+:imagesdir: ./images
+:homepage: http://
+:linkattrs:
+
+include::cl_concept.adoc[]
+
+include::logging_dm.adoc[]
