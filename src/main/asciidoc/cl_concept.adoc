@@ -7,14 +7,18 @@ Logging is mostly treated as a local affair: Of an application or solution, a te
 a group thereof. But the internal as well as external complexity of building block increases the effort to draw the right
 conclusions from the large heap of logging records.
 
-The trend from large monolithic application building block to smaller -- but therefore intensely interconnected --
-software components is visible. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria, https://www.s-itsolutions.at/)
-started a project to care for a central logging and journalling data lake. +
-The architectural pattern here is a description along the line of this "Central Logging & Journaling" solution/application
-of sIT. It is targeted not at smaller systems but tries to deal with enterprises and larger IT landscapes.
+The trend from large monolithic application building blocks to smaller -- but therefore intensely interconnected --
+software components is present. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria,
+https://www.s-itsolutions.at/) started a project to care for a central logging and journalling data lake. +
+The architectural pattern here is a description along the line of this "Central Logging & Journalling"
+solution/application of sIT. It is targeted not at smaller systems but tries to deal with enterprises and larger IT
+landscapes.
 
-So, if you feel your path to wisdom through logs look like this: image:forest_log.jpg[forest], you're a happy developer.
-But if it looks a bit more like this: image:jungle_log.JPG[jungle], further reading could maybe help you.
+So, if you feel your path to wisdom by reading logs look like this, you're a happy developer. +
+image:forest_log.jpg[forest, role="right"]
+
+But if it looks a bit more like this, further reading could maybe help you. +
+image:jungle_log.JPG[jungle, role="right"]
 
 === Goals
 Logging is not an end in itself -- it supports many use-cases that can be grouped into four partitions:
