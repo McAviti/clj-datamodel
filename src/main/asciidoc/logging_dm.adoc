@@ -22,6 +22,10 @@ The dimensions that are suggested is a combination, fitting to the actual need, 
 
 === Fields
 
+This list of fields can mostly be seen as a gross list of common values a log system could care for. Different
+applications in different contexts might use one or another subset of this enumeration, hardly filling them all. But,
+and that is the main reason for this list, values of similar semantics in a log record store should be named equally, to
+make traversing logs of different applications easier. +
 Mandatory fields are printed [teal]*bold*.
 
 .NDM fields
@@ -48,7 +52,7 @@ The record type is used for partitioning the CLJ data stores for the permission 
 retention periods and archiving strategy.
 
 |String |recordSubType |Additional field to identify the event
-|Can be used as a type of the source log record. For example is use as when the recordType is 'serverLog', the
+|Can be used as a type of the source log record. For example, if the recordType is 'serverLog', the
 recordSubType could be "tomcat" oder "weblogic".
 
 |String | [teal]*tenant*	|Institute number
@@ -78,7 +82,7 @@ context of current data protection laws.
 
 4+|*Source Info, which component wrote this log record*
 
-|String	|solutionCode	|Unique identifier of solution	|Identifies the Solution as unit in the IT landscape.
+|String	|[teal]*solutionCode*	|Unique identifier of a solution	|Identifies the Solution as unit in the IT landscape.
 
 |String	|solutionFunctionCode	|Id of functional building block|If needed, more fine-grained organizational partitioning.
 
@@ -95,7 +99,7 @@ context of current data protection laws.
 this identifies the Browser that has been used. The writing solution can give any information if it thinks that
 information about its caller makes a difference.
 
-|String	|agentVersion	|TODO|
+|String	|agentVersion	|TODO| deprecated, might be removed in the future.
 
 |String	|serverInstanceName	|Identifies the server instance|e.g. the docker pod
 
@@ -107,7 +111,7 @@ processes.
 4+|*Harvesting Info, where was the log record first persistet, might be different from the source solution*
 
 |String |sourceType |Syntax of the incoming data
-|Syntax of the incoming data (into the messaging building lbock). 'generic' means using the NDM in JSON, this is the
+|Syntax of the incoming data (into the messaging brick). 'generic' means using the NDM in JSON, this is the
 default value. If the syntax is not 'generic' the central logging service might be able to to a proper transformation.
 
 |String	|loggingHostname	|Server Host Name	|like sourceHostname
@@ -128,13 +132,13 @@ Mainframe, …) can be sent if needed.
 So a tree-like structure of log records can be created.
 
 |String	|contextId1	|Mapping context id field 1
-|In the evJournal context this is the sessionId.
+|Example: The id of a user session.
 
 |String	|contextId2	|Mapping context id field 2
-|In the evJournal context this is the activityId (Use Case ID).
+|Example: The (use case) id of a user's activity.
 
 |String	|contextId3	|Mapping context id field 3
-|In the evJournal context this is the techInfoId.
+|Example: The id of a explicit technical log record.
 
 |String	|contextId4	|Mapping context id field 4|
 
