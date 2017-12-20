@@ -105,7 +105,7 @@ them from the filesystem or another data store. Both methods have pro's and con'
 | Direct transfer | Logfile harvesting
 
 | + Fastest +
-  + Possibly eliminates one component (file system)
+  + Possibly eliminates one component (file system) +
   - Technically a tight coupling
 | + Non-intrusive to existing applications +
   - Needs another process (ressources + monitoring)
