@@ -4,8 +4,8 @@
 
 === Introduction
 Logging is mostly treated as a local affair: Of an application or solution, a team, or even a single developer, maybe
-a group thereof. But the internal as well as external complexity of building block increases the effort to draw the right
-conclusions from the large heap of logging records.
+a group thereof. But the increasing complexity of software systems increases the effort to draw the
+right conclusions from a large heap of heterogeneous logging records.
 
 The trend from large monolithic application building blocks to smaller -- but therefore intensely interconnected --
 software components is present. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria,
@@ -14,14 +14,14 @@ The architectural pattern here is a description along the line of this "Central 
 solution/application of sIT. It is targeted not at smaller systems but tries to deal with enterprises and larger IT
 landscapes.
 
-So, if you feel your path to wisdom by reading logs look like this, you're a happy developer. +
-image:forest_log.jpg[forest, role="right"]
+So, if you feel your path to wisdom by reading logs looks like this, you're a happy developer already. +
+image:forest_log.jpg[forest, role="thumb"]
 
 But if it looks a bit more like this, further reading could maybe help you. +
-image:jungle_log.JPG[jungle, role="right"]
+image:jungle_log.JPG[jungle, role="thumb"]
 
 === Goals
-Logging is not an end in itself -- it supports many use-cases that can be grouped into four partitions:
+Logging is not an end in itself -- it enables many use-cases that can be grouped into four partitions:
 
 [A]. *Support:* Find out about what the system did in its runtime, in order to detect the source of problems or give
 information to other stakeholders. Mostly use-cases here investigate in exceptional program behaviour.
@@ -78,7 +78,8 @@ This building block cares for a reliable (real 24/7) component where the applica
 up to. It is high-performant, lean, stable and therefore capable to also swallow extreme high-load peaks.
 
 This building block also cares for the use-case group [C]. The type of product is queue-like, our implementation uses
-Apache Kafka (https://kafka.apache.org/).
+Apache Kafka (https://kafka.apache.org/). Another example would be to use Amazon's Firehose/Kinesis in an AWS-based
+environment.
 
 ==== Online Research Store
 This record store is responsible for the structured and fast search for log records and to find out about connections
@@ -105,19 +106,21 @@ them from the filesystem or another data store. Both methods have pro's and con'
 
 | + Fastest +
   + Possibly eliminates one component (file system)
+  - Technically a tight coupling
 | + Non-intrusive to existing applications +
   - Needs another process (ressources + monitoring)
 |===
 
 ===== Direct transfer
-Possibilities for application to integrate are:
+Possibilities for applications to integrate are:
 
 - Own client libs of messaging brick
 - APIs for creating messages that fit to the data model of CLJ
 - Appenders for existing logging frameworks (e.g. log4j2 in Java, or log.net for C#)
 
 Generally it is a good idea to offer integration libraries that care for the situations where the messaging brick
-suffers from a failure. In those cases the using application should not be brought down by logging.
+suffers from a failure. In those cases the using application should not be brought down by logging, to mitigate
+the tight coupling issue.
 
 ==== Logfile harvesting
 There are a lot of tools for that use-case, ranging from light-weight native apps that are integrated into the

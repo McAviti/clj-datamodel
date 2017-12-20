@@ -2031,8 +2031,8 @@ table.CodeRay td.code>pre{padding:0}
 <h3 id="_introduction"><a class="anchor" href="#_introduction"></a>1.1. Introduction</h3>
 <div class="paragraph">
 <p>Logging is mostly treated as a local affair: Of an application or solution, a team, or even a single developer, maybe
-a group thereof. But the internal as well as external complexity of building block increases the effort to draw the right
-conclusions from the large heap of logging records.</p>
+a group thereof. But the increasing complexity of software systems increases the effort to draw the
+right conclusions from a large heap of heterogeneous logging records.</p>
 </div>
 <div class="paragraph">
 <p>The trend from large monolithic application building blocks to smaller&#8201;&#8212;&#8201;but therefore intensely interconnected&#8201;&#8212;&#8201;software components is present. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria,
@@ -2042,18 +2042,18 @@ solution/application of sIT. It is targeted not at smaller systems but tries to 
 landscapes.</p>
 </div>
 <div class="paragraph">
-<p>So, if you feel your path to wisdom by reading logs look like this, you&#8217;re a happy developer.<br>
-<span class="image right"><img src="images/forest_log.jpg" alt="forest"></span></p>
+<p>So, if you feel your path to wisdom by reading logs looks like this, you&#8217;re a happy developer already.<br>
+<span class="image thumb"><img src="images/forest_log.jpg" alt="forest"></span></p>
 </div>
 <div class="paragraph">
 <p>But if it looks a bit more like this, further reading could maybe help you.<br>
-<span class="image right"><img src="images/jungle_log.JPG" alt="jungle"></span></p>
+<span class="image thumb"><img src="images/jungle_log.JPG" alt="jungle"></span></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_goals"><a class="anchor" href="#_goals"></a>1.2. Goals</h3>
 <div class="paragraph">
-<p>Logging is not an end in itself&#8201;&#8212;&#8201;it supports many use-cases that can be grouped into four partitions:</p>
+<p>Logging is not an end in itself&#8201;&#8212;&#8201;it enables many use-cases that can be grouped into four partitions:</p>
 </div>
 <div class="paragraph">
 <p>[A]. <strong>Support:</strong> Find out about what the system did in its runtime, in order to detect the source of problems or give
@@ -2136,7 +2136,8 @@ up to. It is high-performant, lean, stable and therefore capable to also swallow
 </div>
 <div class="paragraph">
 <p>This building block also cares for the use-case group [C]. The type of product is queue-like, our implementation uses
-Apache Kafka (<a href="https://kafka.apache.org/" class="bare">kafka.apache.org/</a>).</p>
+Apache Kafka (<a href="https://kafka.apache.org/" class="bare">kafka.apache.org/</a>). Another example would be to use Amazon&#8217;s Firehose/Kinesis in an AWS-based
+environment.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2182,7 +2183,8 @@ them from the filesystem or another data store. Both methods have pro&#8217;s an
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+ Fastest<br>
-  + Possibly eliminates one component (file system)</p></td>
+  + Possibly eliminates one component (file system)
+  - Technically a tight coupling</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+ Non-intrusive to existing applications<br>
   - Needs another process (ressources + monitoring)</p></td>
 </tr>
@@ -2191,7 +2193,7 @@ them from the filesystem or another data store. Both methods have pro&#8217;s an
 <div class="sect4">
 <h5 id="_direct_transfer"><a class="anchor" href="#_direct_transfer"></a>Direct transfer</h5>
 <div class="paragraph">
-<p>Possibilities for application to integrate are:</p>
+<p>Possibilities for applications to integrate are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2208,7 +2210,8 @@ them from the filesystem or another data store. Both methods have pro&#8217;s an
 </div>
 <div class="paragraph">
 <p>Generally it is a good idea to offer integration libraries that care for the situations where the messaging brick
-suffers from a failure. In those cases the using application should not be brought down by logging.</p>
+suffers from a failure. In those cases the using application should not be brought down by logging, to mitigate
+the tight coupling issue.</p>
 </div>
 </div>
 </div>
