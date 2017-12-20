@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 1.5.2">
 <meta name="description" content="CLJ is a blueprint for a shared and central logging building block">
 <meta name="keywords" content="software-architecture, logging, journalling, enterprise-it, practices">
-<title>A Blueprint for Central Logging</title>
+<title>An Architecture Blueprint for a Central Logging System</title>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic|Noto+Serif:400,400italic,700,700italic|Droid+Sans+Mono:400);
 
@@ -1999,7 +1999,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_a_blueprint_for_central_logging">1. A Blueprint for Central Logging</a>
+<li><a href="#_an_architecture_blueprint_for_a_central_logging_system">1. An Architecture Blueprint for a Central Logging System</a>
 <ul class="sectlevel2">
 <li><a href="#_introduction">1.1. Introduction</a></li>
 <li><a href="#_goals">1.2. Goals</a></li>
@@ -2025,20 +2025,24 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_a_blueprint_for_central_logging"><a class="anchor" href="#_a_blueprint_for_central_logging"></a>1. A Blueprint for Central Logging</h2>
+<h2 id="_an_architecture_blueprint_for_a_central_logging_system"><a class="anchor" href="#_an_architecture_blueprint_for_a_central_logging_system"></a>1. An Architecture Blueprint for a Central Logging System</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_introduction"><a class="anchor" href="#_introduction"></a>1.1. Introduction</h3>
 <div class="paragraph">
-<p>Logging is mostly treated as a local affair: Of a application or solution, a team, or even a single developer. But
-internal as well as external complexity of building block increases the effort to draw the right conclusion from the
-large heap of logging records.</p>
+<p>Logging is mostly treated as a local affair: Of an application or solution, a team, or even a single developer, maybe
+a group thereof. But the internal as well as external complexity of building block increases the effort to draw the right
+conclusions from the large heap of logging records.</p>
 </div>
 <div class="paragraph">
-<p>The trend from large monolithic application building block to smaller&#8201;&#8212;&#8201;but therefore intensely interconnected&#8201;&#8212;&#8201;software components is visible. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria)
-started a project and then solution to care for a central logging and journalling data lake.<br>
-The architectural pattern here is described along the line of the "Central Logging &amp; Journaling" solution/application
-of sIT.</p>
+<p>The trend from large monolithic application building block to smaller&#8201;&#8212;&#8201;but therefore intensely interconnected&#8201;&#8212;&#8201;software components is visible. Therefore s IT Solutions AT (IT subsidiary of Erste Bank and Sparkassen in Austria, <a href="https://www.s-itsolutions.at/" class="bare">www.s-itsolutions.at/</a>)
+started a project to care for a central logging and journalling data lake.<br>
+The architectural pattern here is a description along the line of this "Central Logging &amp; Journaling" solution/application
+of sIT. It is targeted not at smaller systems but tries to deal with enterprises and larger IT landscapes.</p>
+</div>
+<div class="paragraph">
+<p>So, if you feel your path to wisdom through logs look like this: <span class="image"><img src="images/forest_log.jpg" alt="forest"></span>, you&#8217;re a happy developer.
+But if it looks a bit more like this: <span class="image"><img src="images/jungle_log.JPG" alt="jungle"></span>, further reading could maybe help you.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2048,22 +2052,22 @@ of sIT.</p>
 </div>
 <div class="paragraph">
 <p>[A]. <strong>Support:</strong> Find out about what the system did in its runtime, in order to detect the source of problems or give
-information to other stakeholders.</p>
+information to other stakeholders. Mostly use-cases here investigate in exceptional program behaviour.</p>
 </div>
 <div class="paragraph">
-<p>[B]. <strong>Compliance:</strong> The number of regulatory use-cases increases, the behaviour of software must be documented for
-many years, often.</p>
+<p>[B]. <strong>Compliance:</strong> The number of regulatory use-cases increases; the run-time behaviour and intermediate data of
+software must be documented, often for many years.</p>
 </div>
 <div class="paragraph">
-<p>[C]. <strong>Monitoring &amp; Alerting:</strong> When a stream of logging data exists, it is self-evident to use this stream to find out
-about the system state as well as problems and report those.</p>
+<p>[C]. <strong>Monitoring &amp; Alerting:</strong> When a stream of logging data exists, it is self-evident to use this stream also to find
+out about the system state as well as problems and report those via multiple channels.</p>
 </div>
 <div class="paragraph">
 <p>[D]. <strong>Analytics &amp; Intelligence:</strong> Sophisticated tools allow data mining, BI etc. to find out ways to improve the
-business, may it be by exploring customer behaviour, may it by predicting operations problems, or may it something
-completely different of what we don&#8217;t even dream of yet.</p>
+business, may it be by exploring customer behaviour, may it by predicting operations problems, or may it be something
+we don&#8217;t even dream of yet.</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-cols spread">
 <caption class="title">Table 1. Use-case groups</caption>
 <colgroup>
 <col style="width: 25%;">
@@ -2247,7 +2251,7 @@ operating system up to full-scale ETL tools (<a href="https://en.wikipedia.org/w
 <p>Each record has its own id value, making it unique in all of the data stores.</p>
 </div>
 <div class="paragraph">
-<p>For managing the stores (especially the online research store for [A]), it is necessary to organize the records in
+<p>For managing the stores (especially the online research store for [A]), though, it is necessary to organize the records in
 a number of dimensions. This separation then supports in the determination of</p>
 </div>
 <div class="ulist">
