@@ -93,7 +93,8 @@ Selected log records (defined by the solution) are persisted in this record stor
 back-up, is fast with writing and stores the record before any tampering with it. On the other hand it does not need
 a super-sophisticated query facility.
 
-In our implementation we decided for Apache Cassandra (http://cassandra.apache.org/).
+In our implementation we decided for Apache Cassandra (http://cassandra.apache.org/). Other possibilities would be
+to store those selected records in flat files and archive them, or use a RDBMS.
 
 ==== The Client Side
 The applications for logging can send their log records either directly into the messaging brick or by harvesting
