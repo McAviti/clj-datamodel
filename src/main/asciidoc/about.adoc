@@ -1,0 +1,24 @@
+== About CLJ
+
+[role="lead"]
+CLJ is a proposal to harmonize logging in an environment where multiple software building blocks are working together
+in order to fulfill shared requirements.
+
+
+
+[NOTE]
+--
+https://mcaviti.github.io/clj-datamodel/[CLJ] is a design blue-print, a proposal how to align a share logging
+environment.
+
+- Which building blocks to position in order to have smooth operations
+- Which fields to care for, having a common naming convention
+- Think about the use-cases that support the organization
+- Grounded in a running system of a not-so-small bank subsidiary
+- Feedback and contribution highly appreciated.
+- icon:github[] Source: CLJ's asciidoc sources are hosted at https://github.com/McAviti/clj-datamodel[CLJ sources].
+- icon:twitter[] Twitter: https://twitter.com/mcaviti[@mcaviti]
+
+--
+
+Authored by the CLJ team in https://www.s-itsolutions.at [s IT Solutions AT], lead by Klemens Dickbauer.

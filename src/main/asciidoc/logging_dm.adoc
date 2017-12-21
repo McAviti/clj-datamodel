@@ -22,8 +22,8 @@ The dimensions that are suggested is a combination, fitting to the actual need, 
 
 === Fields
 
-This list of fields can mostly be seen as a gross list of common values a log system could care for. Different
-applications in different contexts might use one or another subset of this enumeration, hardly filling them all. But,
+This list of fields is a gross list of common values a log system could care for. Different
+applications in different contexts might use one or another subset of this enumeration, hardly setting them all. But,
 and that is the main reason for this list, values of similar semantics in a log record store should be named equally, to
 make traversing logs of different applications easier. +
 Mandatory fields are printed [teal]*bold*.
@@ -111,7 +111,7 @@ processes.
 4+|*Harvesting Info, where was the log record first persistet, might be different from the source solution*
 
 |String |sourceType |Syntax of the incoming data
-|Syntax of the incoming data (into the messaging brick). 'generic' means using the NDM in JSON, this is the
+|Syntax of the incoming data (into the messaging brick). 'generic' means using this data model in JSON, this is the
 default value. If the syntax is not 'generic' the central logging service might be able to to a proper transformation.
 
 |String	|loggingHostname	|Server Host Name	|like sourceHostname
