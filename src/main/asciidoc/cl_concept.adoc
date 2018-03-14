@@ -123,7 +123,7 @@ Generally it is a good idea to offer integration libraries that care for the sit
 suffers from a failure. In those cases the using application should not be brought down by logging, to mitigate
 the tight coupling issue.
 
-==== Logfile harvesting
+===== Logfile harvesting
 There are a lot of tools for that use-case, ranging from light-weight native apps that are integrated into the
 operating system up to full-scale ETL tools (https://en.wikipedia.org/wiki/Extract,_transform,_load).
 

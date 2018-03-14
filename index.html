@@ -2009,7 +2009,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_online_research_store">1.3.2. Online Research Store</a></li>
 <li><a href="#_compliance_store">1.3.3. Compliance Store</a></li>
 <li><a href="#_the_client_side">1.3.4. The Client Side</a></li>
-<li><a href="#_logfile_harvesting">1.3.5. Logfile harvesting</a></li>
 </ul>
 </li>
 </ul>
@@ -2020,6 +2019,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_fields">2.2. Fields</a></li>
 </ul>
 </li>
+<li><a href="#_about_clj">3. About CLJ</a></li>
 </ul>
 </div>
 </div>
@@ -2159,7 +2159,8 @@ back-up, is fast with writing and stores the record before any tampering with it
 a super-sophisticated query facility.</p>
 </div>
 <div class="paragraph">
-<p>In our implementation we decided for Apache Cassandra (<a href="http://cassandra.apache.org/" class="bare">cassandra.apache.org/</a>).</p>
+<p>In our implementation we decided for Apache Cassandra (<a href="http://cassandra.apache.org/" class="bare">cassandra.apache.org/</a>). Other possibilities would be
+to store those selected records in flat files and archive them, or use a RDBMS.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2214,9 +2215,8 @@ suffers from a failure. In those cases the using application should not be broug
 the tight coupling issue.</p>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_logfile_harvesting"><a class="anchor" href="#_logfile_harvesting"></a>1.3.5. Logfile harvesting</h4>
+<div class="sect4">
+<h5 id="_logfile_harvesting"><a class="anchor" href="#_logfile_harvesting"></a>Logfile harvesting</h5>
 <div class="paragraph">
 <p>There are a lot of tools for that use-case, ranging from light-weight native apps that are integrated into the
 operating system up to full-scale ETL tools (<a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" class="bare">en.wikipedia.org/wiki/Extract,_transform,_load</a>).</p>
@@ -2245,6 +2245,7 @@ operating system up to full-scale ETL tools (<a href="https://en.wikipedia.org/w
 </div>
 <div class="paragraph">
 <p>In certain architectures, some of these products could server as the messaging brick itself.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2301,8 +2302,8 @@ a number of dimensions. This separation then supports in the determination of</p
 <div class="sect2">
 <h3 id="_fields"><a class="anchor" href="#_fields"></a>2.2. Fields</h3>
 <div class="paragraph">
-<p>This list of fields can mostly be seen as a gross list of common values a log system could care for. Different
-applications in different contexts might use one or another subset of this enumeration, hardly filling them all. But,
+<p>This list of fields is a gross list of common values a log system could care for. Different
+applications in different contexts might use one or another subset of this enumeration, hardly setting them all. But,
 and that is the main reason for this list, values of similar semantics in a log record store should be named equally, to
 make traversing logs of different applications easier.<br>
 Mandatory fields are printed <strong class="teal">bold</strong>.</p>
@@ -2467,7 +2468,7 @@ processes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sourceType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Syntax of the incoming data</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax of the incoming data (into the messaging brick). 'generic' means using the NDM in JSON, this is the
+<td class="tableblock halign-left valign-top"><p class="tableblock">Syntax of the incoming data (into the messaging brick). 'generic' means using this data model in JSON, this is the
 default value. If the syntax is not 'generic' the central logging service might be able to to a proper transformation.</p></td>
 </tr>
 <tr>
@@ -2624,10 +2625,62 @@ enum Status { red yellow green }</p></td>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_about_clj"><a class="anchor" href="#_about_clj"></a>3. About CLJ</h2>
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>CLJ is a proposal to harmonize logging in an environment where multiple software building blocks are working together
+in order to fulfill shared requirements.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="https://mcaviti.github.io/clj-datamodel/">CLJ</a> is a design blue-print, a proposal how to align a share logging
+environment.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Which building blocks to position in order to have smooth operations</p>
+</li>
+<li>
+<p>Which fields to care for, having a common naming convention</p>
+</li>
+<li>
+<p>Think about the use-cases that support the organization</p>
+</li>
+<li>
+<p>Grounded in a running system of a not-so-small bank subsidiary</p>
+</li>
+<li>
+<p>Feedback and contribution highly appreciated.</p>
+</li>
+<li>
+<p><span class="icon"><i class="fa fa-github"></i></span> Source: CLJ&#8217;s asciidoc sources are hosted at <a href="https://github.com/McAviti/clj-datamodel">CLJ sources</a>.</p>
+</li>
+<li>
+<p><span class="icon"><i class="fa fa-twitter"></i></span> Twitter: <a href="https://twitter.com/mcaviti">@mcaviti</a></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Authored by the CLJ team in <a href="https://www.s-itsolutions.at" class="bare">www.s-itsolutions.at</a> [s IT Solutions AT], lead by Klemens Dickbauer.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-18 18:17:47 +01:00
+Last updated 2017-12-21 10:24:01 +01:00
 </div>
 </div>
 </body>
