@@ -66,6 +66,13 @@ store instances but merged in one, this identifier determines from which environ
 |If the client does not provide this, or the given value cannot be parsed on server side, the processing engine will
 create a timestamp as next best guess.
 
+|Long | sequence | Determines order | Often the record timestamp is not sufficient to discriminate and order a set of
+logrecords. E.g. ElasticSearch does not care for finer granularity than miliseconds. In this case the sequence field
+could store micros or nanos.
+Another possibility to use this field is that a client can care for a gapless sequence to be sure that no records are
+lost during transmission, procession and retrieval. A logging front-end can use this field as sole default order
+attribute or as secondary order attribute after recordTimestamp.
+
 |String	|logLevel	|Level of importance, as provided by many low-level logging systems
 |This field is optional, it is also not normalized, meaning that whatever the client solution provides here will be
 taken as-is. A lot of logging libraries have their own mind on this topic.

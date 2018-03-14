@@ -129,11 +129,11 @@ operating system up to full-scale ETL tools (https://en.wikipedia.org/wiki/Extra
 
 A few examples:
 
-- rsyslog (http://www.rsyslog.com/)
-- fluentd (https://www.fluentd.org/)
-- Apache flume (https://flume.apache.org/)
-- ElasticSearch' beat-family (https://www.elastic.co/products/beats)
+- **rsyslog** (http://www.rsyslog.com/)
+- **fluentd** (https://www.fluentd.org/)
+- Apache **flume** (https://flume.apache.org/)
 - logstash (https://www.elastic.co/products/logstash, the 'L' from the famous ELK stack)
+- ElasticSearch' **beat**-family as feeder for the heavy-weight logstash (https://www.elastic.co/products/beats)
 
 In certain architectures, some of these products could server as the messaging brick itself.
 
