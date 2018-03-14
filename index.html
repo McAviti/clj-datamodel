@@ -2227,19 +2227,19 @@ operating system up to full-scale ETL tools (<a href="https://en.wikipedia.org/w
 <div class="ulist">
 <ul>
 <li>
-<p>rsyslog (<a href="http://www.rsyslog.com/" class="bare">www.rsyslog.com/</a>)</p>
+<p><strong>rsyslog</strong> (<a href="http://www.rsyslog.com/" class="bare">www.rsyslog.com/</a>)</p>
 </li>
 <li>
-<p>fluentd (<a href="https://www.fluentd.org/" class="bare">www.fluentd.org/</a>)</p>
+<p><strong>fluentd</strong> (<a href="https://www.fluentd.org/" class="bare">www.fluentd.org/</a>)</p>
 </li>
 <li>
-<p>Apache flume (<a href="https://flume.apache.org/" class="bare">flume.apache.org/</a>)</p>
-</li>
-<li>
-<p>ElasticSearch' beat-family (<a href="https://www.elastic.co/products/beats" class="bare">www.elastic.co/products/beats</a>)</p>
+<p>Apache <strong>flume</strong> (<a href="https://flume.apache.org/" class="bare">flume.apache.org/</a>)</p>
 </li>
 <li>
 <p>logstash (<a href="https://www.elastic.co/products/logstash" class="bare">www.elastic.co/products/logstash</a>, the 'L' from the famous ELK stack)</p>
+</li>
+<li>
+<p>ElasticSearch' <strong>beat</strong>-family as feeder for the heavy-weight logstash (<a href="https://www.elastic.co/products/beats" class="bare">www.elastic.co/products/beats</a>)</p>
 </li>
 </ul>
 </div>
@@ -2372,6 +2372,17 @@ store instances but merged in one, this identifier determines from which environ
 <td class="tableblock halign-left valign-top"><p class="tableblock">When the log record has been created</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If the client does not provide this, or the given value cannot be parsed on server side, the processing engine will
 create a timestamp as next best guess.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sequence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determines order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Often the record timestamp is not sufficient to discriminate and order a set of
+logrecords. E.g. ElasticSearch does not care for finer granularity than miliseconds. In this case the sequence field
+could store micros or nanos.
+Another possibility to use this field is that a client can care for a gapless sequence to be sure that no records are
+lost during transmission, procession and retrieval. A logging front-end can use this field as sole default order
+attribute or as secondary order attribute after recordTimestamp.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
@@ -2680,7 +2691,7 @@ environment.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-21 10:24:01 +01:00
+Last updated 2018-03-14 01:42:56 +01:00
 </div>
 </div>
 </body>
