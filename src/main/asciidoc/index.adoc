@@ -10,4 +10,6 @@ include::cl_concept.adoc[]
 
 include::logging_dm.adoc[]
 
+include::resources.adoc[]
+
 include::about.adoc[]
